@@ -22,5 +22,8 @@
   "homepage": "https://github.com/mattwhen/SE-Profile-Generator#readme",
   "devDependencies": {
     "jest": "^29.4.3"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4"
   }
 }
