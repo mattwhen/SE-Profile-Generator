@@ -15,24 +15,7 @@ getEmail()
 
 getRole() // Returns 'Employee'
 */ 
-class Employee {
-    constructor(name, id, email) {
-        this._name = name;
-        this._id = id; 
-        this._email = email;
-    }
 
-    // Getter methods
-    get getName() {
-        return this._name;
-    }
-    get getId() {
-        return this._id;
-    }
-    get getEmail() {
-        return this._email;
-    }
-}
 // JS calls the contructor method every time it creates a new instance/object of a class.
 const tom = new Employee('Tom', '15863', 'tom@facebook.com');
 console.log(tom.getName);
