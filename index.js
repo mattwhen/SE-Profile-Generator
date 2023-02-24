@@ -1,2 +1,2 @@
 const main = require('./src/cli/prompt');
-main();
+main(); // Invoke the main() from the prompt.js file
