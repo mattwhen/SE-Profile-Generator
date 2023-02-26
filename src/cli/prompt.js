@@ -8,7 +8,9 @@ inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer)); // Library 
 const fs = require('fs/promises');
 
 
-const employeeArray = [];
+const managerArray = [];
+const engineerArray = [];
+const internArray = [];
 
 function startPrompt() {
     inquirer.prompt([
@@ -35,8 +37,7 @@ function startPrompt() {
       
     ]) .then((answers) => {
         const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.officeNumber, answers.addMembers);
-        employeeArray.push(manager); // Push the manager variable into the empty Array, in this case the employeeArray
-        console.log(`Return this object: ${JSON.stringify(employeeArray)}`);
+        managerArray.push(manager); // Push the manager variable into the empty Array, in this case the managerArray
         addMembersPrompt();
     }) 
     .catch((err) => console.error(err));
@@ -48,13 +49,13 @@ function addMembersPrompt() {
         {
         type: "loop",
         name: "teamMember",
-        message: "Would you like to add any additional team members?",
+        message: "Would you like to add additional team members?",
         questions: [
             {
                 type: "list",
                 name: "addMember",
                 message: "Select from the following options: ",
-                choices: ['Engineer', 'Intern', 'I am done adding members to my team']
+                choices: ['Engineer', 'Intern']
             },
             {
                 type: "input", 
@@ -63,7 +64,7 @@ function addMembersPrompt() {
             },
             {
                 type: "input",
-                name: "memberName",
+                name: "memberId",
                 message: "Please enter their ID:"
             },
             {
@@ -83,12 +84,25 @@ function addMembersPrompt() {
                 message: "What school do you attend? ",
                 when: (teamMember) => teamMember.addMember === 'Intern' // Only prompt this question if 'Intern' option is selected.
             }
-                ]
-        }
-        
-    ])
-    .then((data) => console.log(data));
-}
+        ]} 
+         ]) 
+         .then((data) => {
+            const members = data.teamMember; 
+            for (let i = 0; i < members.length; i++) { 
+                const membersArray = members[i]; 
+                if (membersArray.addMember === 'Engineer') {
+                   const engineer = new Engineer(membersArray.memberName, membersArray.memberId, membersArray.memberEmail, membersArray.githubUsername);
+                   engineerArray.push(engineer);
+                   console.log("this is the engineer array", engineerArray);
+                }
+                else if (membersArray.addMember === 'Intern') {
+                    const intern = new Intern(membersArray.memberName, membersArray.memberId, membersArray.memberEmail, membersArray.schoolName);
+                    internArray.push(intern);
+                    console.log('Data in the intern array', internArray);
+                }
+            }
+         })
+}; // End of addMembersPrompt function
 
 function main() {
     startPrompt();
