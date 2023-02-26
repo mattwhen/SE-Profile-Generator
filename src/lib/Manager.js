@@ -1,3 +1,4 @@
+// Import the Employee class
 const Employee = require('./Employee');
 // Create a new class instance from the Employee class
 class Manager extends Employee {
@@ -20,5 +21,5 @@ class Manager extends Employee {
     }
 };
 
-
+// Export the Manager class
 module.exports = Manager; 
