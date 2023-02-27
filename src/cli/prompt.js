@@ -6,7 +6,7 @@ const Intern = require('../lib/Intern');
 const inquirer = require('inquirer');
 inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer)); // Library used to repeatedly ask user if they want to keep adding more members.
 const fs = require('fs/promises');
-
+const generateHtmlTemplate = require('../../templateHtml');
 
 const managerArray = [];
 const engineerArray = [];
@@ -101,8 +101,16 @@ function addMembersPrompt() {
                     console.log('Data in the intern array', internArray);
                 }
             }
+
+            const content = generateHtmlTemplate;
+
+            // Generate HTML file
+            fs.writeFile('../TeamProfile.html', content, (error) => 
+                error ? console.log('There was a system error, please try again.', error) : console.log('Team profile was successfully generated'));
          })
 }; // End of addMembersPrompt function
+
+
 
 function main() {
     startPrompt();

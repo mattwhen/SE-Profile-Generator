@@ -24,8 +24,11 @@ function generateBaseHtml() {
         <title>Document</title>
     </head>
     <body>
+        <p>Test</p>
         ${[]} 
     </body>
     </html>
     `
 }
+
+module.exports = {generateTeamList, generateBaseHtml}
