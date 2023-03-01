@@ -6,14 +6,12 @@ const Intern = require("../lib/Intern");
 const inquirer = require("inquirer");
 inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer)); // Library used to repeatedly ask user if they want to keep adding more members.
 const fs = require("fs/promises");
-const generateHtmlTemplate = require("./generateHtml");
 const generateBaseHtml = require("./generateHtml");
 
 const teamArray = [];
 
-function startPrompt() {
-  inquirer
-    .prompt([
+function managerPrompt() {
+  inquirer.prompt([
       {
         type: "input",
         name: "managerName",
@@ -50,31 +48,30 @@ function startPrompt() {
 }
 
 function engineerPrompt() {
-  inquirer
-    .prompt([
+  inquirer.prompt([
       {
         type: "input",
         name: "engineerName",
-        message: "Please enter a Engineers name: ",
+        message: "Please enter the Engineer's name: ",
       },
       {
         type: "input",
         name: "engineerId",
-        message: "Please enter a engineers ID: ",
+        message: "Please enter the Engineer's ID: ",
       },
       {
         type: "input",
         name: "engineerEmail",
-        message: "Please enter a engineer email: ",
+        message: "Please enter the Engineer's email: ",
       },
       {
         type: "input",
         name: "engineerGithub",
-        message: "Please enter the engineers github: ",
+        message: "Please enter the Engineer's GitHub username: ",
       },
     ])
     .then((answers) => {
-      const engineer = new Engineer(
+      const engineer = new Engineer (
         answers.engineerName,
         answers.engineerId,
         answers.engineerEmail,
@@ -86,83 +83,65 @@ function engineerPrompt() {
     .catch((err) => console.error(err));
 }
 
+function internPrompt() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "internName",
+            message: "Please enter a Intern's name: "
+        },
+        {
+            type: "input",
+            name: "internId",
+            message: "Please enter the Intern's ID: ",
+          },
+          {
+            type: "input",
+            name: "internEmail",
+            message: "Please enter the Intern's email: ",
+          },
+          {
+            type: "input",
+            name: "internSchool",
+            message: "Please enter the School the Intern attends: ",
+          },
+    ])
+    .then((answers) => {
+        const intern = new Intern (
+        answers.internName,
+        answers.internId,
+        answers.internEmail,
+        answers.internSchool
+        );
+        teamArray.push(intern);
+        addMembersPrompt();
+    }) 
+    .catch((err) => console.err(err));
+}
+
 function addMembersPrompt() {
-  // Prompt another series of prompts for adding team members and push data into EmployeeArray
-  inquirer
-    .prompt([
+  // Prompt another series of prompts for adding team members and push data into teamArray
+  inquirer.prompt([
       {
         type: "list",
         name: "choice",
         message: "Would you like to add additional team members?",
-        choices: ["Engineer", "Intern", "No"],
-        // questions: [
-        //     {
-        //         type: "list",
-        //         name: "addMember",
-        //         message: "Select from the following options: ",
-
-        //     },
-        //     {
-        //         type: "input",
-        //         name: "memberName",
-        //         message: "What is the team members name?"
-        //     },
-        //     {
-        //         type: "input",
-        //         name: "memberId",
-        //         message: "Please enter their ID:"
-        //     },
-        //     {
-        //         type: "input",
-        //         name: "memberEmail",
-        //         message: "Please enter the members email:",
-        //     },
-        //     {
-        //         type: "input",
-        //         name: "githubUsername",
-        //         message: "Enter your GitHub username: ",
-        //         when: (teamMember) => teamMember.addMember === 'Engineer' // Only prompt this question if 'Engineer' option is selected.
-        //     },
-        //     {
-        //         type: "input",
-        //         name: "schoolName",
-        //         message: "What school do you attend? ",
-        //         when: (teamMember) => teamMember.addMember === 'Intern' // Only prompt this question if 'Intern' option is selected.
-        //     }
-        // ]
+        choices: ["Engineer", "Intern", "No"]
       },
     ])
-    .then(({ choice }) => {
+    .then(({ choice }) => { // {choice} Object deconstructor
       console.log(choice);
       switch (choice) {
-        case "Engineer":
+        case "Engineer": // If engineer is selected, run engineerPrompt()
           engineerPrompt();
           break;
-        case "Intern":
+        case "Intern": // If Intern is selected, run internPrompt()
           internPrompt();
           break;
-        default:
+        default: // If no matches, generate Html page. 
           const teamHtml = generateBaseHtml(teamArray);
           writeHtml(teamHtml);
       }
-      // const members = data.teamMember;
-      // for (let i = 0; i < members.length; i++) {
-      //     const membersArray = members[i];
-      //     if (membersArray.addMember === 'Engineer') {
-      //        const engineer = new Engineer(membersArray.memberName, membersArray.memberId, membersArray.memberEmail, membersArray.githubUsername);
-      //        engineerArray.push(engineer);
-      //        console.log("this is the engineer array", engineerArray);
-      //     }
-      //     else if (membersArray.addMember === 'Intern') {
-      //         const intern = new Intern(membersArray.memberName, membersArray.memberId, membersArray.memberEmail, membersArray.schoolName);
-      //         internArray.push(intern);
-      //         console.log('Data in the intern array', internArray);
-      //     }
-      // }
-
-      // const content = generateHtmlTemplate(managerArray[0].name);
-
-      // Generate HTML file
     }); // End of addMembersPrompt function
 }
 function writeHtml(content) {
@@ -172,7 +151,7 @@ function writeHtml(content) {
 }
 
 function main() {
-  startPrompt();
+  managerPrompt();
 }
-// Export the main() function so it is available to the other files.
+// Export the main() function so it is available.
 module.exports = main;

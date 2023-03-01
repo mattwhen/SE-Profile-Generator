@@ -1,4 +1,6 @@
+// Require the Employee class
 const Employee = require('./Employee');
+// Create a new class instance inherited from the Employee class
 class Engineer extends Employee {
     constructor(name, id, email, gitHubUserName) {
         super(name, id, email)
@@ -10,7 +12,7 @@ class Engineer extends Employee {
     }
 
     getGitHub() {
-        return `This is my GitHub username: ${this.gitHubUserName}`;
+        return this.gitHubUserName;
     }
 
     getRole() {

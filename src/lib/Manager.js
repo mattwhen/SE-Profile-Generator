@@ -1,4 +1,4 @@
-// Import the Employee class
+// Require the Employee class
 const Employee = require('./Employee');
 // Create a new class instance from the Employee class
 class Manager extends Employee {

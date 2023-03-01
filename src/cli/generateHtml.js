@@ -1,18 +1,44 @@
+const Engineer = require('../lib/Engineer');
 const Manager = require('../lib/Manager');
+const Intern = require('../lib/Intern');
 
 function generateTeamList(list = []) {
     console.log('Generating HTML...', list);
     const htmlArray = list.map((member, index) => {
-        console.log(member, index)
+        console.log('if manager is an instance of', member, index)
         if (member instanceof Manager) {
             return `
-            
             <li id='team-${member.getId()}'>
                 <h4>${member.getName()}</h4>
                 <p>Office number: ${member.getOfficeNumber()}</p>
-                <a href='mailto:${member.getEmail()}'>${member.getEmail()}</h4>
+                <a href='mailto:${member.getEmail()}subject:The%20subject%20of%20the%20mail'>${member.getEmail()}</a>
+                </h4>
             </li>
-            
+            `
+        }
+        if (member instanceof Engineer) {
+            console.log('if Engineer is an instance of', member, index);
+            return `
+            <li id= 'team-${member.getId()}'>
+                <h4>${member.getName()}</h4>
+                <h4>${member.getRole()}</h4>
+                <p>${member.getId()}</p>
+                <p>${member.getEmail()}</p>
+                <p> Github:
+                <a href='https://github.com/${member.getGitHub()}' target= "_blank">${member.getGitHub()}</a>
+                </p>
+            </li>
+            `
+        }
+        if (member instanceof Intern) {
+            console.log('if Intern is an instance of', member, index);
+            return `
+            <li id= 'team-${member.getId()}'>
+                <h4>${member.getName()}</h4>
+                <h4>${member.getRole()}</h4>
+                <p>${member.getId()}</p>
+                <p>${member.getSchool()}</p>
+            </li>
             `
         }
     })
