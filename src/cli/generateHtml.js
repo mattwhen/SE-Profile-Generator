@@ -1,19 +1,26 @@
+const Manager = require('../lib/Manager');
+
 function generateTeamList(list = []) {
     console.log('Generating HTML...', list);
-    return list.map((member, index) => {
+    const htmlArray = list.map((member, index) => {
+        console.log(member, index)
         if (member instanceof Manager) {
             return `
-            <ul>
-            <li><h4>${manager.getName()}</h4></li>
-            <li><h4>${manager.getId()}</h4></li>
-            <li><h4>${manager.getEmail()}</h4></li>
-            </ul>
+            
+            <li id='team-${member.getId()}'>
+                <h4>${member.getName()}</h4>
+                <p>Office number: ${member.getOfficeNumber()}</p>
+                <a href='mailto:${member.getEmail()}'>${member.getEmail()}</h4>
+            </li>
+            
             `
         }
     })
+
+    return htmlArray.join('');
 }
 
-function generateBaseHtml() {
+function generateBaseHtml(list) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -24,11 +31,12 @@ function generateBaseHtml() {
         <title>Document</title>
     </head>
     <body>
-        <p>Test</p>
-        ${[]} 
+        <ul>
+        ${generateTeamList(list)} 
+        </ul>
     </body>
     </html>
     `
 }
 
-module.exports = {generateTeamList, generateBaseHtml}
+module.exports = generateBaseHtml;

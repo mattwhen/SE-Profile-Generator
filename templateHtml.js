@@ -1,5 +1,14 @@
+const Manager = require('')
 
-function generateHtmlTemplate() {
+function generateTeamHtml(teamArray) {
+    console.log(teamArray);
+    for (const [index, teamMember] of teamArray) {
+        console.log(index, teamMember);
+    }
+}
+
+
+function generateHtmlTemplate(managerArray) {
    const template = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -11,7 +20,7 @@ function generateHtmlTemplate() {
     <body>
         <ul>
             <li>
-                <p>${manager.getName()}</p>
+                <p>${managerArray[0].name}</p>
             </li>
         </ul>
     </body>
