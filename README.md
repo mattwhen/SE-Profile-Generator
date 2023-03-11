@@ -19,7 +19,10 @@ This will download the modules to run this application.
  <br><br>
 
 ## **How to use** 
-Open the project in your IDE, and open terminal in the root folder (SE-Profile-Generator) inside your IDE, or you can open a seprate terminal application and change directories into the root folder. Although in my opinion, using the integrated terminal in the IDE is much more convenient.
+Open the project in your IDE, and open terminal in the root folder (SE-Profile-Generator) inside your IDE, or you can open a seprate terminal application and change directories into the root folder. Although in my opinion, using the integrated terminal in the IDE is much more convenient. 
+
+Once you're in the correct folder/directory run the following command in the terminal: 
+* npm start
 
 
 
@@ -42,6 +45,8 @@ Screen recording demo:
 [demo](./TeamProfile_demo.gif)
 <br>
 
-## <b>Deployed link to application:
+## <b>Repository:
 https://mattwhen.github.io/SE-Profile-Generator/ 
+
+## <b>Deployed application via Heroku:
 
