@@ -49,4 +49,4 @@ Screen recording demo:
 https://mattwhen.github.io/SE-Profile-Generator/ 
 
 ## <b>Deployed application via Heroku:
-
+https://profile-generator.herokuapp.com/ 
